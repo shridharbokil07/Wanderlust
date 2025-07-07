@@ -1,0 +1,33 @@
+<% layout("layout/boilerplate") %>
+<%- success %>
+
+<body>
+  <h3>All Listings</h3>
+
+  <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+    <% for (let listing of allListings) { %>
+      <div class="col mb-4">
+        <a href="/listings/<%= listing._id %>" class="listing-link text-decoration-none text-dark">
+          <div class="card listing-card h-100">
+            <img 
+              src="<%= listing.image.url %>" 
+              class="card-img-top" 
+              alt="listing_image" 
+              style="height: 20rem; object-fit: cover;" 
+            />
+            <div class="card-body">
+              <p class="card-text">
+                <b><%= listing.title %></b><br/>
+                <% if (listing.price != null) { %>
+                  ₹<%= listing.price.toLocaleString("en-IN") %> / night
+                <% } else { %>
+                  Price not available
+                <% } %>
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    <% } %>
+  </div>
+</body>
