@@ -54,9 +54,9 @@ cookie:{
 
 
 
-app.get("/", (req, res) => {
-  res.send("Hi, I am root");
-});
+// app.get("/", (req, res) => {
+//   res.send("Hi, I am root");
+// });
 
 app.use(session(sessionOptions));
 app.use(flash());

@@ -36,18 +36,19 @@
   </div>
 
  <div class="mb-3">
-  <img src="<%= listing.image.url %>"/>
+  Original Listing Image <br/>
+  <img src="<%= originalImageUrl %>"/>
  </div>
 
 
-  <div class="mb-3">
-    <label for="image" class="form-label">Image Link</label>
-    <input
-      name="listing[image]"
-      value="<%= listing.image %>"
-      type="file"
-      class="form-control" />
-      </div>
+ <div class="mb-3">
+  <label for="image" class="form-label">Upload New Image (optional)</label>
+  <input
+    name="image"
+    id="image"
+    type="file"
+    class="form-control" />
+</div>
  
 
 

@@ -14,9 +14,9 @@
             <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="listing_image" />
 
             <div class="card-body">
-                <p class="card-text">Owned By<i><b>
-                            <%= listing.owner.username %>
-                        </b></i></p>
+             <p class="card-text">Owned By <i><b>
+  <%= listing.owner?.username || "Unknown" %>
+</b></i></p>
 
                 <p class="card-text">
                     <%= listing.description %>
@@ -34,8 +34,7 @@
         </div>
 
         <br />
-
-        <% if(currUser && listing.owner._id.equals(currUser._id)) { %>
+<% if (currUser && listing.owner && listing.owner._id.equals(currUser._id)) { %>
             <div class="btns">
                 <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark col-1 offset-3 edit-btn">Edit</a>
 
@@ -109,9 +108,29 @@
                                         <% } %>
                                 </div>
                                 <% } %>
-                                    <div class="col-8 offset-3 mb-3">
+                                    <div class="col-6  mb-3">
                                         <h3>📍Where you'll be</h3>
                                         <div id="map"></div>
                                     </div>
                 </div>
+                
+<script>
+   let maapToken ="<%= process.env.MAP_TOKEN%>";
+                    console.log(maapToken);
+    mapboxgl.accessToken = 'maapToken';
+    const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/standard', // Use the standard style for the map
+        projection: 'globe', // display the map as a globe
+        zoom: 1, // initial zoom level, 0 is the world view, higher values zoom in
+        center: [30, 15] // center the map on this longitude and latitude
+    });
+
+    map.addControl(new mapboxgl.NavigationControl());
+    map.scrollZoom.disable();
+
+    map.on('style.load', () => {
+        map.setFog({}); // Set the default atmosphere style
+    });
+</script>
                 <script src="/js/map.js"></script>

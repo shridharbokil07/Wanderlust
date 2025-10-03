@@ -5,20 +5,32 @@ const Listing = require("../models/listing.js");
 const { isLoggedIn, isOwner, validateListing } = require("../middleware.js");
 const listingController = require("../controllers/listings.js");
 const multer = require(`multer`);
-const {storage} = require("../cloudConfig.js");
-const upload = multer({ storage});
+const { storage } = require("../cloudConfig.js");
+const upload = multer({ storage });
 
-// Index and Create Listing
-router
-  .route("/")
-  .get(wrapAsync(listingController.index))
-  .post(
-    isLoggedIn,
-    upload.single("listing[image]"),
-    validateListing,
-    wrapAsync(listingController.createListing)
-  );
+// Replace this block:
+// router.get("/", (req, res) => {
+//   res.send("Listing index works");
+// });
 
+// With this:
+router.get("/", async (req, res) => {
+  try {
+    const listings = await Listing.find({});
+    res.render("listings/index", { listings });
+  } catch (e) {
+    res.status(500).send("Error fetching listings");
+  }
+});
+
+// Create Listing
+router.post(
+  "/",
+  isLoggedIn,
+  upload.single("listing[image]"),
+  validateListing,
+  wrapAsync(listingController.createListing)
+);
 
 // New Listing Form
 router.get("/new", isLoggedIn, listingController.renderNewForm);
