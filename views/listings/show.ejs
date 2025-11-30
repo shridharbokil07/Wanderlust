@@ -1,7 +1,7 @@
 <% layout("/layout/boilerplate") %>
 
     <script>
-        const mapToken = "<%= process.env.Map_Token %>";
+        const mapToken = "<%= process.env.MAP_TOKEN %>";
     </script>
 
     <div class="row mt-3">
@@ -43,7 +43,7 @@
                 </form>
             </div>
             <% } %>
-                <div class="col-8 offset-3 mb-3">
+                    <div class="col-8 offset-3 mb-3">
 
                     <% if(currUser) { %>
                         <hr />
@@ -114,23 +114,17 @@
                                     </div>
                 </div>
                 
-<script>
-   let maapToken ="<%= process.env.MAP_TOKEN%>";
-                    console.log(maapToken);
-    mapboxgl.accessToken = 'maapToken';
+                <script>
+                    let token = "<%= token %>";
+                mapboxgl.accessToken = token;
+                console.log("Mapbox Token:", mapboxgl.accessToken); // Debugging line to check the token    
     const map = new mapboxgl.Map({
         container: 'map',
-        style: 'mapbox://styles/mapbox/standard', // Use the standard style for the map
+        style: 'mapbox://styles/mapbox/streets-v12', // Use the standard style for the map
         projection: 'globe', // display the map as a globe
         zoom: 1, // initial zoom level, 0 is the world view, higher values zoom in
-        center: [30, 15] // center the map on this longitude and latitude
+        center: [77.209, 28.6139] // center the map on this longitude and latitude
     });
-
-    map.addControl(new mapboxgl.NavigationControl());
-    map.scrollZoom.disable();
-
-    map.on('style.load', () => {
-        map.setFog({}); // Set the default atmosphere style
-    });
 </script>
-                <script src="/js/map.js"></script>
+
+ <!-- <script src="/js/map.js"></script> -->

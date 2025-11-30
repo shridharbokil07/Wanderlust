@@ -23,7 +23,8 @@ req.flash("error", "Listing you requested for does nor exist!");
 res.redirect("/listings");
 }
 console.log(listing);
-res.render("listings/show.ejs",{listing});
+const token = process.env.MAP_TOKEN;
+res.render("listings/show.ejs",{listing , token});
 };
 
 
